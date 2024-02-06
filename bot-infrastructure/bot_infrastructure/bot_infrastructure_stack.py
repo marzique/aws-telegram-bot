@@ -11,7 +11,7 @@ class BotInfrastructureStack(Stack):
         # Layers
         self.dependencies_layer = aws_lambda_python_alpha.PythonLayerVersion(
             self, "DependenciesLayer",
-            entry="../layers",  # Path to the directory containing requirements.txt file
+            entry="../",  # Path to the directory containing requirements.txt file
             compatible_runtimes=[lambda_.Runtime.PYTHON_3_12],
             description="A layer with dependencies",
         )

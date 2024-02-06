@@ -1,0 +1,7 @@
+aws-cdk-lib==2.123.0
+beautifulsoup4==4.12.3
+constructs>=10.0.0,<11.0.0
+requests==2.31.0
+pyTelegramBotAPI==4.15.4
+python-dotenv==1.0.1
+aws-cdk-lib==2.126.0

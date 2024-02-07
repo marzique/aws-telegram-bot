@@ -31,7 +31,8 @@ class JobScraperService:
             jobs.append(data)
         return jobs
 
-    def get_job_data(self, job_url: str):
+    @staticmethod
+    def get_job_data(job_url: str):
         try:
             response = requests.get(job_url)
         except Exception as e:
@@ -50,7 +51,8 @@ class JobScraperService:
 
         job_data = {
             "title": soup.find("h1").text.strip(),
-            "url": logo_url
+            "url": logo_url,
+            "data": {},
         }
         vacancy_description = soup.find("div", class_="vacancy-description")
         elements = vacancy_description.find_all("h2")
@@ -61,7 +63,7 @@ class JobScraperService:
 
             element_text = next_sibling.text.strip()
             texts = element_text.split("\n")
-            job_data[element.text] = texts
+            job_data["data"][element.text] = texts
 
         return job_data
 

@@ -11,7 +11,7 @@ class BotInfrastructureStack(Stack):
         # Layers
         self.dependencies_layer = aws_lambda_python_alpha.PythonLayerVersion(
             self, "DependenciesLayer",
-            entry="layers",  # Path to the directory containing requirements.txt file
+            entry="bot_infrastructure/layers",  # Path to the directory containing requirements.txt file
             compatible_runtimes=[lambda_.Runtime.PYTHON_3_12],
             description="A layer with dependencies",
         )
@@ -20,11 +20,12 @@ class BotInfrastructureStack(Stack):
         self.bot_lambda = lambda_.Function(
             self, 'SendTelegramMessageLambda',
             runtime=lambda_.Runtime.PYTHON_3_12,
-            code=lambda_.Code.from_asset('handlers'),
-            handler='telegram_handlers.send_telegram_message',
+            code=lambda_.Code.from_asset('bot_infrastructure'),
+            handler='handlers.telegram_handlers.send_telegram_message',
             layers=[self.dependencies_layer],
             environment={  # Environment variables
                 'BOT_TOKEN': os.environ.get('BOT_TOKEN'),
+                'CHAT_ID': os.environ.get('CHAT_ID'),
             }
         )
 
